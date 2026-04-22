@@ -64,24 +64,15 @@ public class JOptionPanePlanejamentoViagem {
     }
 
     public static void menu() {
-        String[] opcoes = {"PLanejar Viagem", "Sair"};
-
-
-        Object escolha = JOptionPane.showInputDialog(null,
-                "Escolha a opção desejada.",
-                "Consulta de Cadastros",
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                opcoes,opcoes[0]);
-        verificacao(escolha);
-        
+        int sair = JOptionPane.showConfirmDialog(null, "Deseja planejar Viagem?", "Bem vindo!", JOptionPane.YES_NO_OPTION);
+        verificacao(sair);
     }
-
-    public static void verificacao(int valor) {
-        if (valor == 0) {
+    
+    public static void verificacao(int valor){
+        if(valor == 0){
             //coisas coisadas
         }
-        if (valor == 1) {
+        if(valor == 1){
             JOptionPane.showMessageDialog(null, "Fechando o Systema!");
             System.exit(0);
         }
