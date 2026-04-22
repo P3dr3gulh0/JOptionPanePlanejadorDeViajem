@@ -1,13 +1,90 @@
+/*
+Descrição 
 
+Desenvolva um programa em Java utilizando JOptionPane que simula o planejamento de uma viagem. O usuário informa seus dados, uma data de viagem e alguns valores numéricos. O sistema realiza conversões, valida os dados e apresenta um resumo da viagem. 
+
+Objetivos 
+
+Utilizar JOptionPane para entrada e saída 
+Trabalhar com conversão de String para números (int, double) 
+Utilizar datas (LocalDate) 
+Validar dados digitados 
+Realizar cálculos simples 
+Regras do Programa 
+
+Exibir um menu inicial: 
+Planejar viagem 
+Sair 
+Solicitar os seguintes dados: 
+Nome do viajante 
+Data da viagem no formato dd/MM/yyyy 
+Quantidade de dias de viagem (inteiro) 
+Valor gasto por dia (decimal) 
+Validar: 
+Campos vazios 
+Conversão de números (usar parseInt e parseDouble) 
+Data válida (usar LocalDate) 
+Valores negativos não são permitidos 
+Processar: 
+Calcular o valor total da viagem: 
+total = dias * valorPorDia 
+Verificar se a viagem é: 
+Passada 
+Hoje 
+Futura 
+Se for futura, calcular quantos dias faltam 
+Exibir resultado: 
+Nome 
+Data da viagem 
+Dias de viagem 
+Valor total 
+Situação da viagem (passada, hoje ou futura) 
+Exemplo de funcionamento 
+
+Entrada: 
+
+Nome: Sebastiana 
+Data: 20/12/2026 
+Dias: 5 
+Valor por dia: 150.50 
+Saída: 
+
+Sebastiana, sua viagem será em 20/12/2026 
+Faltam 40 dias 
+Total estimado: R$ 752.50 
+ */
 package joptionpaneplanejamentoviagem;
 
+import javax.swing.JOptionPane;
 
 public class JOptionPanePlanejamentoViagem {
 
-    
     public static void main(String[] args) {
+        menu();
+    }
+
+    public static void menu() {
+        String[] opcoes = {"PLanejar Viagem", "Sair"};
+
+
+        Object escolha = JOptionPane.showInputDialog(null,
+                "Escolha a opção desejada.",
+                "Consulta de Cadastros",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opcoes,opcoes[0]);
+        verificacao(escolha);
         
-        
+    }
+
+    public static void verificacao(int valor) {
+        if (valor == 0) {
+            //coisas coisadas
+        }
+        if (valor == 1) {
+            JOptionPane.showMessageDialog(null, "Fechando o Systema!");
+            System.exit(0);
+        }
     }
 
 }
