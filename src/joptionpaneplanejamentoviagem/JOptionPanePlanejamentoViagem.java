@@ -55,6 +55,9 @@ Total estimado: R$ 752.50
  */
 package joptionpaneplanejamentoviagem;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 public class JOptionPanePlanejamentoViagem {
@@ -67,15 +70,54 @@ public class JOptionPanePlanejamentoViagem {
         int sair = JOptionPane.showConfirmDialog(null, "Deseja planejar Viagem?", "Bem vindo!", JOptionPane.YES_NO_OPTION);
         verificacao(sair);
     }
-    
-    public static void verificacao(int valor){
-        if(valor == 0){
-            //coisas coisadas
+
+    public static void verificacao(int valor) {
+        if (valor == 0) {
+            planejarViagem();
         }
-        if(valor == 1){
+        if (valor == 1) {
             JOptionPane.showMessageDialog(null, "Fechando o Systema!");
             System.exit(0);
         }
     }
 
+    public static void planejarViagem() {
+        JOptionPane.showMessageDialog(null, "Vamor começar com seu cadastro!");
+
+        String name = JOptionPane.showInputDialog("Qual seu nome? ");
+        validacaoInput(name);
+
+        String diaViagem = JOptionPane.showInputDialog("Quando planeja viajar?");
+        validacaoInput(diaViagem);
+        validacaoInputData(diaViagem);
+
+//        String qntDiadViagem = JOptionPane.showInputDialog("Quantos dias de viagem?  ");
+//        validacaoInput(qntDiadViagem);
+//
+//        String custoPorDia = JOptionPane.showInputDialog("valo total do custos por dias?");
+//        validacaoInput(custoPorDia);
+    }
+
+    //verificar entrada vazia
+    public static String validacaoInput(String dado) {
+        boolean validacao = true;
+
+        while (validacao) {
+            if (dado == null || dado.isBlank()) {
+                dado = JOptionPane.showInputDialog(null, "Valor invalido! Tente Novamente", JOptionPane.YES_OPTION);
+                System.out.println(dado);
+                validacao = true;
+            } else {
+                validacao = false;
+            }
+        }
+        return dado;
+    }
+
+    public static void validacaoInputData(String dataStr) {
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate data = LocalDate.parse(dataStr, formato);
+        System.out.println(data);
+
+    }
 }
