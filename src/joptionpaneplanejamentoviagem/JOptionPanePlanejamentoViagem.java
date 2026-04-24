@@ -92,11 +92,11 @@ public class JOptionPanePlanejamentoViagem {
         validacaoInput(diaViagem);
         tratamentoInputData(diaViagem);
 
-//        String qntDiadViagem = JOptionPane.showInputDialog("Quantos dias de viagem?  ");
-//        validacaoInput(qntDiadViagem);
-//
-//        String custoPorDia = JOptionPane.showInputDialog("valo total do custos por dias?");
-//        validacaoInput(custoPorDia);
+        String qntDiadViagem = JOptionPane.showInputDialog("Quantos dias de viagem?  ");
+        validacaoInput(qntDiadViagem);
+
+        String custoPorDia = JOptionPane.showInputDialog("valo total do custos por dias?");
+        validacaoInput(custoPorDia);
     }
 
     //verificar entrada vazia
@@ -118,8 +118,7 @@ public class JOptionPanePlanejamentoViagem {
     public static LocalDate tratamentoInputData(String dataStr) {
         // criando e modelo de data        
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-
+        LocalDate dataAtual = new LocalDate.now();
         while (true) {
             try {
                 return LocalDate.parse(dataStr, formato);
