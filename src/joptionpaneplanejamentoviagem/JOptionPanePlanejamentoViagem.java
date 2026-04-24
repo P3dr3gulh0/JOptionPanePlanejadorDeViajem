@@ -57,6 +57,7 @@ package joptionpaneplanejamentoviagem;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -82,14 +83,14 @@ public class JOptionPanePlanejamentoViagem {
     }
 
     public static void planejarViagem() {
-        JOptionPane.showMessageDialog(null, "Vamor começar com seu cadastro!");
+//        JOptionPane.showMessageDialog(null, "Vamor começar com seu cadastro!");
+//
+//        String name = JOptionPane.showInputDialog("Qual seu nome? ");
+//        validacaoInput(name);
 
-        String name = JOptionPane.showInputDialog("Qual seu nome? ");
-        validacaoInput(name);
-
-        String diaViagem = JOptionPane.showInputDialog("Quando planeja viajar?");
+        String diaViagem = JOptionPane.showInputDialog("Quando planeja viajar(dia/mes/ano)?");
         validacaoInput(diaViagem);
-        validacaoInputData(diaViagem);
+        tratamentoInputData(diaViagem);
 
 //        String qntDiadViagem = JOptionPane.showInputDialog("Quantos dias de viagem?  ");
 //        validacaoInput(qntDiadViagem);
@@ -114,10 +115,19 @@ public class JOptionPanePlanejamentoViagem {
         return dado;
     }
 
-    public static void validacaoInputData(String dataStr) {
+    public static LocalDate tratamentoInputData(String dataStr) {
+        // criando e modelo de data        
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate data = LocalDate.parse(dataStr, formato);
-        System.out.println(data);
+
+
+        while (true) {
+            try {
+                return LocalDate.parse(dataStr, formato);
+            } catch (DateTimeParseException e) {
+                dataStr = JOptionPane.showInputDialog(null, "Valor invalido! Use o modelo dia/mes/ano", JOptionPane.YES_OPTION);
+
+            }
+        }
 
     }
 }
