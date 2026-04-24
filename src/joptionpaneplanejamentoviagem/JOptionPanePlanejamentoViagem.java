@@ -58,6 +58,7 @@ package joptionpaneplanejamentoviagem;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -90,7 +91,7 @@ public class JOptionPanePlanejamentoViagem {
 
         String diaViagem = JOptionPane.showInputDialog("Quando planeja viajar(dia/mes/ano)?");
         validacaoInput(diaViagem);
-        tratamentoInputData(diaViagem);
+        LocalDate diaViagemTratado = tratamentoInputData(diaViagem);
 
         String qntDiadViagem = JOptionPane.showInputDialog("Quantos dias de viagem?  ");
         validacaoInput(qntDiadViagem);
@@ -118,7 +119,6 @@ public class JOptionPanePlanejamentoViagem {
     public static LocalDate tratamentoInputData(String dataStr) {
         // criando e modelo de data        
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate dataAtual = new LocalDate.now();
         while (true) {
             try {
                 return LocalDate.parse(dataStr, formato);
@@ -128,5 +128,15 @@ public class JOptionPanePlanejamentoViagem {
             }
         }
 
+    }
+
+    public static long contagemDias(LocalDate diaMarcado) {
+        LocalDate dataAtual = LocalDate.now();
+        long contDias = ChronoUnit.DAYS.between(dataAtual, diaMarcado);
+        return contDias;
+    }
+    
+    public static double valorViagem(double valorDia, long qntDias){
+        return qntDias*valorDia;     
     }
 }
