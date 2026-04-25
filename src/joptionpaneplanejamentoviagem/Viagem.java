@@ -25,9 +25,9 @@ public class Viagem {
     }
 
     public void exibir() {
-        JOptionPane.showMessageDialog(null, getNomeViajante() + ", Sua viagem será em " + getDataViagem() 
-                +"\n Faltam"+ contagemDias(dataViagem) + " Dias"
-                + "\n Valot total estimado: "+ valorViagem(valorDia, diasDeViagem) );
+        JOptionPane.showMessageDialog(null, getNomeViajante() + ", Sua viagem será em " + getDataViagem()
+                + "\n Faltam" + contagemDias(dataViagem) + " Dias"
+                + "\n Valot total estimado: " + valorViagem(valorDia, diasDeViagem));
 
     }
 
@@ -37,6 +37,18 @@ public class Viagem {
         long contDias = ChronoUnit.DAYS.between(dataAtual, diaMarcado);
         return contDias;
     }
+
+//    public static void situacaoVIagen(long contDias) {
+//        if(contDias == 0){
+//            
+//        }
+//        if(contDias > 0){
+//            
+//        }
+//        if(contDias < 0){
+//            
+//        }
+//    }
 
     // calculando valor total da viagem
     public static double valorViagem(double valorDia, int qntDiasViagem) {
