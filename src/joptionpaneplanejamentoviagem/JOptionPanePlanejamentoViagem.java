@@ -59,49 +59,85 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
 public class JOptionPanePlanejamentoViagem {
 
     public static void main(String[] args) {
-        menu();
-    }
-
-    public static void menu() {
-        int sair = JOptionPane.showConfirmDialog(null, "Deseja planejar Viagem?", "Bem vindo!", JOptionPane.YES_NO_OPTION);
-        verificacao(sair);
-    }
-
-    public static void verificacao(int valor) {
-        if (valor == 0) {
-            planejarViagem();
-        }
-        if (valor == 1) {
-            JOptionPane.showMessageDialog(null, "Fechando o Systema!");
-            System.exit(0);
+        ArrayList<Viagem> viagens = new ArrayList();
+        while(true){
+        menu(viagens);
         }
     }
+    
+    
+    public static void menu(ArrayList<Viagem> viagens) {
+        
+        String[] opcoes = {"Planejar viagem", "Verificar Viagem", "sair"};
 
-    public static void planejarViagem() {
-//        JOptionPane.showMessageDialog(null, "Vamor começar com seu cadastro!");
-//
-//        String name = JOptionPane.showInputDialog("Qual seu nome? ");
-//        validacaoInput(name);
+        int escolha = JOptionPane.showOptionDialog(
+                null,
+                "Escolha: ",
+                "Bem Vindo",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                opcoes,
+                opcoes[0]);
+        verificacao(escolha, viagens);
+
+    }
+
+    public static void verificacao(int valor, ArrayList<Viagem> viagens) {
+
+
+        switch (valor) {
+            case 0:
+                Viagem v = planejarViagem();
+                viagens.add(v);
+                break;
+            case 1:
+                mostrarViagens(viagens);
+                break;
+
+            default:
+                JOptionPane.showMessageDialog(null, "Fechando o Systema!");
+                System.exit(0);
+
+        }
+    }
+
+    public static Viagem planejarViagem() {
+
+        //Receber Valores
+        JOptionPane.showMessageDialog(null, "Vamor começar com seu cadastro!");
+
+        String name = JOptionPane.showInputDialog("Qual seu nome? ");
+        validacaoInputNull(name);
 
         String diaViagem = JOptionPane.showInputDialog("Quando planeja viajar(dia/mes/ano)?");
-        validacaoInput(diaViagem);
-        LocalDate diaViagemTratado = tratamentoInputData(diaViagem);
+        diaViagem = validacaoInputNull(diaViagem);
 
-        String qntDiadViagem = JOptionPane.showInputDialog("Quantos dias de viagem?  ");
-        validacaoInput(qntDiadViagem);
+        String qntDiasViagem = JOptionPane.showInputDialog("Quantos dias de viagem?  ");
+        qntDiasViagem = validacaoInputNull(qntDiasViagem);
 
         String custoPorDia = JOptionPane.showInputDialog("valo total do custos por dias?");
-        validacaoInput(custoPorDia);
+        custoPorDia = validacaoInputNull(custoPorDia);
+
+        //Conversão de valores
+        LocalDate diaViagemTratado = tratamentoInputData(diaViagem);
+
+        int qntDiasViagemTratado = Integer.parseInt(qntDiasViagem);
+        double curtoPorDiaTratado = Double.parseDouble(custoPorDia);
+
+        return new Viagem(name, diaViagemTratado, qntDiasViagemTratado, curtoPorDiaTratado);
+
     }
 
-    //verificar entrada vazia
-    public static String validacaoInput(String dado) {
+    //verifica entrada vazia
+    public static String validacaoInputNull(String dado) {
         boolean validacao = true;
 
         while (validacao) {
@@ -116,27 +152,28 @@ public class JOptionPanePlanejamentoViagem {
         return dado;
     }
 
+    // recebendo valor em string e transformando em data valida
     public static LocalDate tratamentoInputData(String dataStr) {
         // criando e modelo de data        
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        //se entrada estiver fora do modelo, ele pede novamente até entrar
         while (true) {
             try {
                 return LocalDate.parse(dataStr, formato);
             } catch (DateTimeParseException e) {
                 dataStr = JOptionPane.showInputDialog(null, "Valor invalido! Use o modelo dia/mes/ano", JOptionPane.YES_OPTION);
-
             }
         }
-
     }
 
-    public static long contagemDias(LocalDate diaMarcado) {
-        LocalDate dataAtual = LocalDate.now();
-        long contDias = ChronoUnit.DAYS.between(dataAtual, diaMarcado);
-        return contDias;
-    }
-    
-    public static double valorViagem(double valorDia, long qntDias){
-        return qntDias*valorDia;     
+    public static void mostrarViagens(ArrayList<Viagem> viagem) {
+        if (viagem.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Lista vazia.", "Vazio", JOptionPane.WARNING_MESSAGE);
+        } else {
+            for (Viagem v : viagem) {
+                v.exibir();
+            }
+        }
     }
 }
